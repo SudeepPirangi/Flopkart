@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* generic styles */
+a:focus,
+a:hover {
+  text-decoration: none !important;
+}
+
+/* header styles */
+.navbar {
+  border-radius: 0;
+}
+.main-content {
+  margin-top: 71px;
+}
+
+/* footer styles */
+#footer {
+  padding: 15px;
+  text-align: center;
+  background-color: #222;
+  color: #fff;
+  position: relative;
+}
+#footer .author {
+  font-weight: bold;
+}

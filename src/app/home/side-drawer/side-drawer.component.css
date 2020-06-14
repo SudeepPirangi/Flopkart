@@ -1,0 +1,46 @@
+#side-drawer {
+  background-color: #f0ad4e;
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  margin-top: -20px;
+  padding: 10px 10px 60px;
+  transition: ease-out 0.5s;
+}
+#side-drawer.hiddenDrawer {
+  margin-left: -250px;
+  transition: ease-in 0.5s;
+}
+#side-drawer #drawMe {
+  position: absolute;
+  top: 0;
+  right: -50px;
+  border-radius: 0 0 5px 0;
+  padding: 6.5px 14px;
+  font-size: 1.5em;
+}
+.filter-title {
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.2em;
+}
+#side-drawer .panel-group {
+  margin-bottom: 10px;
+}
+#side-drawer .panel-heading {
+  padding: 0;
+}
+#side-drawer .panel-heading a {
+  padding: 10px 15px;
+  display: block;
+}
+#side-drawer .panel-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* align-items: center; */
+}
+#side-drawer .panel-body .eachBrand {
+  text-transform: uppercase;
+}

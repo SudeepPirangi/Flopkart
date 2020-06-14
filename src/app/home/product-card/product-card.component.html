@@ -1,0 +1,12 @@
+<div class="productCard text-center" id="{{ product.id }}">
+  <img src="assets/{{ product.img }}" />
+  <p class="productName">{{ product.title }}</p>
+  <p class="productBrand">{{ product.company }}</p>
+  <p>
+    MRP: <span class="productPrice">${{ product.price }}</span>
+  </p>
+  <div class="btnGrp">
+    <button type="button" class="btn btn-warning">Wishlist</button>
+    <button type="button" class="btn btn-primary">Add to Cart</button>
+  </div>
+</div>
