@@ -1,5 +1,5 @@
 <div class="main-content">
-  <app-side-drawer></app-side-drawer>
+  <app-side-drawer (filterChange)="onBrandFilter($event)"></app-side-drawer>
   <div id="productsOverview">
     <app-product-card
       *ngFor="let product of products"

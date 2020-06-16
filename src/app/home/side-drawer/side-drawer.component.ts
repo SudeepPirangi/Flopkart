@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { storeProducts } from '../../../assets/data.js';
 
@@ -8,12 +8,13 @@ import { storeProducts } from '../../../assets/data.js';
   styleUrls: ['./side-drawer.component.css'],
 })
 export class SideDrawerComponent implements OnInit {
-  hideDrawer: boolean = false;
+  hideDrawer: boolean = true;
   allProducts: any = storeProducts;
-  allBrands: string[] = [];
-  allPrices: number[] = [];
-  filteredBrands: any[] = [];
-  filteredPrices: any[] = [];
+  allBrands: string[] = ['None'];
+  allPrices: string[] = ['None'];
+  priceRanges: string[] = ['$0 - $100', '$101 - $500', '$501 - $1000'];
+
+  @Output() filterChange = new EventEmitter<object>();
 
   constructor() {
     this.allProducts.forEach((product: any) => {
@@ -27,6 +28,11 @@ export class SideDrawerComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  onFilterChange(filterObj: any) {
+    // console.log(filterObj);
+    this.filterChange.emit(filterObj);
+  }
 
   toggleDrawer() {
     this.hideDrawer = !this.hideDrawer;
