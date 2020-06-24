@@ -19,20 +19,16 @@
       </div>
       <div id="brandFilters" class="panel-collapse collapse in">
         <div class="panel-body">
-          <ng-container *ngFor="let brand of allBrands">
-            <p class="eachBrand">
-              <input
+          <div class="checkbox" *ngFor="let brand of allBrands">
+            <label
+              ><input
                 type="checkbox"
-                (change)="
-                  onFilterChange({
-                    filterType: 'brand',
-                    param: brand,
-                    isChecked: $event.target.checked
-                  })
-                "
-              />&nbsp; {{ brand }}
-            </p>
-          </ng-container>
+                name="brand"
+                value="{{ brand }}"
+                (change)="onFilterChange($event)"
+              />{{ brand }}</label
+            >
+          </div>
         </div>
         <!-- <div class="panel-footer">Panel Footer</div> -->
       </div>
@@ -48,20 +44,16 @@
       </div>
       <div id="priceFilters" class="panel-collapse collapse in">
         <div class="panel-body">
-          <ng-container *ngFor="let range of priceRanges">
-            <p class="eachPrice">
-              <input
+          <div class="checkbox" *ngFor="let range of priceRanges">
+            <label
+              ><input
                 type="checkbox"
-                (change)="
-                  onFilterChange({
-                    filterType: 'priceRange',
-                    param: range,
-                    isChecked: $event.target.checked
-                  })
-                "
-              />&nbsp; {{ range }}
-            </p>
-          </ng-container>
+                name="priceRange"
+                [value]="range"
+                (change)="onFilterChange($event)"
+              />{{ range }}</label
+            >
+          </div>
         </div>
         <!-- <div class="panel-footer">Panel Footer</div> -->
       </div>

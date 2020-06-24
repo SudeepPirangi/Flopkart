@@ -1,9 +1,28 @@
 <div class="main-content">
-  <app-side-drawer (filterChange)="onBrandFilter($event)"></app-side-drawer>
-  <div id="productsOverview">
-    <app-product-card
-      *ngFor="let product of products"
-      [product]="product"
-    ></app-product-card>
+  <app-side-drawer
+    [products]="products"
+    (filterChange)="onBrandFilter($event)"
+  ></app-side-drawer>
+  <div class="row">
+    <div class="col-xs-12 col-sm-offset-9 col-sm-3">
+      <!-- <label for="searchProducts">Search</label> -->
+      <input
+        type="search"
+        class="form-control"
+        name="search"
+        id="search"
+        placeholder="Search Product"
+        [value]=""
+        ngModel
+        (keyup)="searchProducts($event)"
+      />
+    </div>
+  </div>
+  <app-products
+    [filteredProducts]="filteredProducts"
+    *ngIf="!isEmpty"
+  ></app-products>
+  <div class="noData" *ngIf="isEmpty">
+    No Products to display
   </div>
 </div>

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "flopkart-300a5": {
+      "hosting": {
+        "Flopkart": [
+          "flopkart-300a5"
+        ]
+      }
+    }
+  }
+}
