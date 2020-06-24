@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
-import { ProductCardComponent } from './home/product-card/product-card.component';
 import { SideDrawerComponent } from './home/side-drawer/side-drawer.component';
+import { ProductsComponent } from './home/products/products.component';
 
 @NgModule({
   declarations: [
@@ -15,8 +15,8 @@ import { SideDrawerComponent } from './home/side-drawer/side-drawer.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ProductCardComponent,
     SideDrawerComponent,
+    ProductsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

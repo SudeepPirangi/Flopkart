@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-import { storeProducts } from '../../../assets/data.js';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-side-drawer',
@@ -8,25 +6,59 @@ import { storeProducts } from '../../../assets/data.js';
   styleUrls: ['./side-drawer.component.css'],
 })
 export class SideDrawerComponent implements OnInit {
-  hideDrawer: boolean = false;
-  allProducts: any = storeProducts;
+  hideDrawer: boolean = true;
+  @Input() products: any;
   allBrands: string[] = [];
-  allPrices: number[] = [];
-  filteredBrands: any[] = [];
-  filteredPrices: any[] = [];
+  priceRanges: any[] = [
+    '$1 - $250',
+    '$251 - $500',
+    '$501 - $750',
+    '$751 - $1000',
+    '$1001+',
+  ];
+  allFilters = {
+    brands: [],
+    priceRanges: [],
+  };
 
-  constructor() {
-    this.allProducts.forEach((product: any) => {
+  @Output() filterChange = new EventEmitter<any>();
+
+  constructor() {}
+
+  ngOnInit() {
+    this.products.forEach((product: any) => {
       this.allBrands.push(product.company);
-      this.allPrices.push(product.price);
     });
     this.allBrands = [...new Set(this.allBrands)];
-    this.allPrices = [...new Set(this.allPrices)];
     // console.log(this.allBrands);
-    // console.log(this.allPrices);
+    // console.log(this.priceRanges);
   }
 
-  ngOnInit() {}
+  onFilterChange(event) {
+    const thisType = event.target.name;
+    const thisParam = event.target.value;
+    const thisIsChecked = event.target.checked;
+    if (thisIsChecked) {
+      if (thisType === 'brand') {
+        this.allFilters.brands.push(thisParam);
+      } else if (thisType === 'priceRange') {
+        this.allFilters.priceRanges.push(thisParam);
+      }
+    } else {
+      if (thisType === 'brand') {
+        this.allFilters.brands = this.allFilters.brands.filter((brand) => {
+          return brand !== thisParam;
+        });
+      } else if (thisType === 'priceRange') {
+        this.allFilters.priceRanges = this.allFilters.priceRanges.filter(
+          (price) => {
+            return price !== thisParam;
+          }
+        );
+      }
+    }
+    this.filterChange.emit(this.allFilters);
+  }
 
   toggleDrawer() {
     this.hideDrawer = !this.hideDrawer;
