@@ -3,6 +3,7 @@
     [products]="products"
     (filterChange)="onBrandFilter($event)"
   ></app-side-drawer>
+
   <div class="row">
     <div class="col-xs-12 col-sm-offset-9 col-sm-3">
       <!-- <label for="searchProducts">Search</label> -->
@@ -18,10 +19,19 @@
       />
     </div>
   </div>
+
   <app-products
     [filteredProducts]="filteredProducts"
     *ngIf="!isEmpty"
+    (cartList)="onCartAdd($event)"
   ></app-products>
+
+  <app-cart
+    [cartItems]="cartItems"
+    (editedCart)="onCartEdit($event)"
+    (resetCart)="onCartReset()"
+  ></app-cart>
+
   <div class="noData" *ngIf="isEmpty">
     No Products to display
   </div>
