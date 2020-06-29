@@ -12,7 +12,14 @@
     </p>
     <div class="btnGrp">
       <button type="button" class="btn btn-warning">Wishlist</button>
-      <button type="button" class="btn btn-primary">Add to Cart</button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="product.inCart"
+        (click)="addToCart(product)"
+      >
+        Add to Cart
+      </button>
     </div>
   </div>
 </div>

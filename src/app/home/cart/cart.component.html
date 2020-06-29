@@ -1,0 +1,93 @@
+<div id="cartModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">
+          <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp; Cart
+        </h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped" *ngIf="!cartEmpty">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="cartName">Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cartItem" *ngFor="let item of cartItems" id="item.id">
+              <td class="cartImg">
+                <img src="assets/{{ item.img }}" alt="{{ item.title }}" />
+              </td>
+              <td class="cartName">
+                <span class="itemName">{{ item.title }}</span
+                ><br />
+                <span class="itemBrand">{{ item.company | uppercase }}</span>
+              </td>
+              <td class="cartQty">
+                <div class="btn-group val">
+                  <button
+                    class="btn btn-default"
+                    (click)="onQtyMinus(item.id)"
+                    [disabled]="disableMinus"
+                  >
+                    -
+                  </button>
+                  <button class="btn btn-default">{{ item.count }}</button>
+                  <button
+                    class="btn btn-default"
+                    (click)="onQtyPlus(item.id)"
+                    [disabled]="disablePlus"
+                  >
+                    +
+                  </button>
+                </div>
+              </td>
+              <td class="cartPrice">
+                <span class="val">${{ item.price }}</span>
+              </td>
+              <td class="cartTotal">
+                <span class="val">${{ item.total }}</span>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="cartItem">
+              <td class="cartImg"></td>
+              <td class="cartName">
+                <span class="itemName grandTitle">Grand Total</span>
+              </td>
+              <td colspan="2"></td>
+              <td class="grandTotal">${{ grandTotal }}</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <table class="table table-striped" *ngIf="cartEmpty">
+          <thead>
+            <tr>
+              <th rowspan="5" class="emptyCart text-center">
+                No items to display<br />Start adding items into Cart
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="modal-footer btnGrp between">
+        <button type="button" class="btn btn-warning" (click)="clearCart()">
+          Clear Cart
+        </button>
+        <button type="button" class="btn btn-primary" (click)="makePayment()">
+          Proceed to Payment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
