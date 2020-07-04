@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { storeProducts } from 'src/assets/data.js';
+import { CartService } from '../services/cart.service';
+import { Subscription } from 'rxjs';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'app-home',
@@ -12,84 +15,16 @@ export class HomeComponent {
   value: string;
   isEmpty: boolean = false;
   cartItems: any[] = [];
+  cartSub: Subscription;
 
-  constructor() {}
+  constructor(
+    private cartService: CartService,
+    private productsService: ProductsService
+  ) {}
 
   ngOnInit() {
-    this.products = storeProducts;
+    this.products = this.productsService.products;
     this.filteredProducts = this.products;
-  }
-
-  onCartAdd(cartList: any[]) {
-    console.log('cart in home', cartList);
-    this.cartItems = cartList;
-    this.onCartEdit(cartList);
-  }
-
-  onCartEdit(editedCart: any[]) {
-    console.log('edited Cart', editedCart);
-    this.cartItems = editedCart;
-    if (editedCart.length === 0) {
-      this.filteredProducts.map((product) => {
-        product.inCart = false;
-        product.count = 0;
-        product.total = 0;
-      });
-    } else {
-      let matchID: number, matchItr: number; // only for printing purpose
-      for (let i = 0; i < this.filteredProducts.length; i++) {
-        let product = this.filteredProducts[i];
-        console.log('filteredProducts itr', product.id);
-        let matchFlag = false,
-          inCart: boolean,
-          count: number,
-          total: number;
-        for (let j = 0; j < editedCart.length; j++) {
-          let edit = editedCart[j];
-          console.log('editedCart itr', edit.id);
-          if (product.id === edit.id) {
-            matchID = edit.id;
-            matchItr = i;
-            console.log('ids match', edit.id);
-            matchFlag = true;
-            count = edit.count;
-            inCart = edit.count === 0 ? false : true;
-            total = edit.total;
-            break;
-          }
-        }
-        if (matchFlag) {
-          product.inCart = inCart;
-          product.count = count;
-          product.total = total;
-          continue;
-        } else {
-          product.inCart = false;
-          product.count = 0;
-          product.total = 0;
-        }
-      }
-      // print purpose only
-      let temp = this.filteredProducts[matchItr];
-      // console.log('updated product', this.filteredProducts);
-      console.log(
-        'updated product',
-        matchID,
-        temp.inCart,
-        temp.count,
-        temp.total
-      );
-    }
-  }
-
-  onCartReset() {
-    console.log('Resetting Cart');
-    this.cartItems = [];
-    this.filteredProducts.map((product) => {
-      product.inCart = false;
-      product.count = 0;
-      product.total = 0;
-    });
   }
 
   onBrandFilter(filters: any) {
