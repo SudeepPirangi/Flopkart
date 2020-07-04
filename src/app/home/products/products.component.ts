@@ -2,11 +2,13 @@ import {
   Component,
   OnInit,
   Input,
-  Output,
-  EventEmitter,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+
+import { product } from 'src/app/models/product.model';
+import { CartService } from 'src/app/services/cart.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -15,10 +17,12 @@ import {
 })
 export class ProductsComponent implements OnInit, OnChanges {
   @Input() filteredProducts: any;
-  @Output() cartList = new EventEmitter<any[]>();
   cartItems: any[] = [];
 
-  constructor() {}
+  constructor(
+    private cartservice: CartService,
+    private productsService: ProductsService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     console.log('product changes', changes);
@@ -29,40 +33,12 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
-  addToCart(product: any) {
-    this.setProductCartStatus(product);
-
-    // console.log('product added', product);
-    if (this.cartItems.length === 0) {
-      ++product.count;
-      product.total = product.price;
-      this.cartItems.push(product);
-      console.log('inital pushed', product.title);
-    } else {
-      let flag = false;
-      this.cartItems.map((thisItem: any) => {
-        if (thisItem.id === product.id) {
-          console.log('item exists', product.title);
-          flag = true;
-          ++thisItem.count;
-          thisItem.total = thisItem.count * thisItem.price;
-        }
-      });
-      if (!flag) {
-        ++product.count;
-        product.total = product.price;
-        this.cartItems.push(product);
-        console.log('just pushed', product.title);
-      }
-    }
-    this.cartList.emit(this.cartItems);
+  addToCart(product: product) {
+    this.cartservice.addToCart(product);
+    this.updateProductStatus(product.id, true);
   }
 
-  setProductCartStatus(product: any) {
-    this.filteredProducts.map((origProduct) => {
-      if (origProduct.id === product.id) {
-        origProduct.inCart = true;
-      }
-    });
+  updateProductStatus(id: number, status: boolean) {
+    this.productsService.updateProductStatus(id, status);
   }
 }

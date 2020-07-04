@@ -36,7 +36,7 @@
                   <button
                     class="btn btn-default"
                     (click)="onQtyMinus(item.id)"
-                    [disabled]="disableMinus"
+                    [disabled]="item.disableMinus"
                   >
                     -
                   </button>
@@ -44,7 +44,7 @@
                   <button
                     class="btn btn-default"
                     (click)="onQtyPlus(item.id)"
-                    [disabled]="disablePlus"
+                    [disabled]="item.disablePlus"
                   >
                     +
                   </button>
@@ -81,10 +81,20 @@
         </table>
       </div>
       <div class="modal-footer btnGrp between">
-        <button type="button" class="btn btn-warning" (click)="clearCart()">
+        <button
+          type="button"
+          class="btn btn-warning"
+          [disabled]="cartEmpty"
+          (click)="clearCart()"
+        >
           Clear Cart
         </button>
-        <button type="button" class="btn btn-primary" (click)="makePayment()">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="cartEmpty"
+          (click)="makePayment()"
+        >
           Proceed to Payment
         </button>
       </div>

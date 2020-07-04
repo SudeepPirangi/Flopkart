@@ -80,5 +80,6 @@ footer {
   position: relative;
 }
 #footer .author {
-  font-weight: bold;
+  color: #ec971f;
+  /* font-weight: bold; */
 }

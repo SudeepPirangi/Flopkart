@@ -23,14 +23,9 @@
   <app-products
     [filteredProducts]="filteredProducts"
     *ngIf="!isEmpty"
-    (cartList)="onCartAdd($event)"
   ></app-products>
 
-  <app-cart
-    [cartItems]="cartItems"
-    (editedCart)="onCartEdit($event)"
-    (resetCart)="onCartReset()"
-  ></app-cart>
+  <app-cart></app-cart>
 
   <div class="noData" *ngIf="isEmpty">
     No Products to display
